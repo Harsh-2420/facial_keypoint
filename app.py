@@ -7,6 +7,15 @@ app = Flask(__name__)
 model = keras.models.load_model(
     '/Users/harshjhunjhunwala/Desktop/github/facial_keypoint/model.h5')
 
-# @app.route("/")
-# def home():
-#     return
+
+@app.route("/")
+def home():
+    return render_template('index.html')
+
+# @app.route("/predict", methods=["POST"])
+# def predict():
+#     int_features = [int(x) for x in request.form.values()]
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
