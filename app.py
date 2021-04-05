@@ -12,6 +12,15 @@ model = keras.models.load_model(
 def home():
     return render_template('index.html')
 
+
+@app.route("/uploader", methods=["POST"])
+def upload_file():
+    if request.method == "POST":
+        f = request.files['file']
+        f.save(secure_filename(f.filename))
+        return 'file uploaded successfully'
+
+
 # @app.route("/predict", methods=["POST"])
 # def predict():
 #     int_features = [int(x) for x in request.form.values()]
