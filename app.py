@@ -6,6 +6,7 @@ from tensorflow import keras
 import os
 from werkzeug.utils import secure_filename
 from keras.preprocessing.image import load_img, img_to_array, array_to_img, save_img
+from PIL import Image, ImageOps
 
 # Define Flask app
 app = Flask(__name__)
@@ -17,7 +18,8 @@ model = keras.models.load_model(
 
 def model_predict(img_path, model):
     img = load_img(img_path, target_size=(96, 96))
-    x = img_to_array(img)
+    im2 = ImageOps.grayscale(img)
+    x = img_to_array(im2)
     # x = preprocess_input(x)
 
     preds = model.predict(x)
