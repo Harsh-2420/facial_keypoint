@@ -20,7 +20,7 @@ def model_predict(img_path, model):
     img = load_img(img_path, target_size=(96, 96))
     im2 = ImageOps.grayscale(img)
     x = img_to_array(im2)
-    # x = preprocess_input(x)
+    x = np.expand_dims(x, axis=0)
 
     preds = model.predict(x)
 
@@ -47,8 +47,8 @@ def upload():
         f.save(file_path)
 
         preds = model_predict(file_path, model)
-        return preds
-    return None
+        return str(preds[0][0])
+    return 'upload func ran'
 
 
 if __name__ == '__main__':
