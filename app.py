@@ -24,6 +24,8 @@ def model_predict(img_path, model):
 
     preds = model.predict(x)
 
+    return preds
+
     # plt.imshow(x.reshape(96,96 ),cmap='gray')
     # plt.scatter(preds[0::2], preds[1::2])
     # plt.show()
@@ -47,7 +49,7 @@ def upload():
         f.save(file_path)
 
         preds = model_predict(file_path, model)
-        return str(preds[0][0])
+        return str(preds)
     return 'upload func ran'
 
 
