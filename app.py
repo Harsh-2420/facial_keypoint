@@ -46,9 +46,20 @@ def upload():
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(basepath, 'uploads',
                                  secure_filename(f.filename))
-        f.save(file_path)
 
+        f.save(file_path)
         preds = model_predict(file_path, model)
+
+        download_path = os.path.join('downloads', secure_filename(f.filename))
+
+        img = load_img(file_path, target_size=(96, 96))
+        im2 = ImageOps.grayscale(img)
+        x = img_to_array(im2)
+
+        plt.imshow(x.reshape(96, 96), cmap='gray')
+        plt.scatter(preds[0][0::2], preds[0][1::2])
+        plt.savefig(download_path)
+
         return str(preds)
     return 'upload func ran'
 
